@@ -1,0 +1,158 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;1,9..40,400&display=swap');
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+    font-family: 'DM Sans', sans-serif;
+  }
+  body {
+    @apply bg-amazon-dark text-white overflow-x-hidden;
+  }
+  * {
+    @apply box-border;
+  }
+}
+
+@layer components {
+
+  /* ─── Buttons ─────────────────────────────────────────────── */
+
+  .btn-primary {
+    @apply bg-amazon-orange hover:bg-amazon-orange-light
+           text-amazon-dark font-bold px-5 py-2.5 rounded-md text-sm
+           transition-all duration-200
+           shadow-[0_2px_14px_rgba(255,153,0,0.35)]
+           hover:shadow-[0_4px_22px_rgba(255,153,0,0.55)]
+           hover:-translate-y-px active:translate-y-0
+           inline-block cursor-pointer;
+  }
+
+  .btn-outline {
+    @apply bg-transparent text-white font-semibold px-5 py-2.5 rounded-md text-sm
+           border border-white/25 transition-all duration-200
+           hover:border-amazon-orange hover:text-amazon-orange
+           inline-block cursor-pointer;
+  }
+
+  .btn-hero {
+    @apply bg-amazon-orange hover:bg-amazon-orange-light
+           text-amazon-dark font-bold px-9 py-4 rounded-md text-base
+           inline-flex items-center gap-2.5 transition-all duration-200
+           shadow-[0_4px_26px_rgba(255,153,0,0.42)]
+           hover:shadow-[0_8px_36px_rgba(255,153,0,0.6)]
+           hover:-translate-y-0.5 cursor-pointer;
+  }
+
+  .btn-ghost-hero {
+    @apply bg-white/[0.06] text-white font-semibold px-9 py-4 rounded-md text-base
+           border border-white/15 inline-flex items-center gap-2.5 transition-all duration-200
+           hover:bg-white/10 hover:border-amazon-orange/40 cursor-pointer;
+  }
+
+  .btn-cta {
+    @apply bg-amazon-dark text-amazon-orange font-bold text-lg
+           px-14 py-4 rounded-md inline-flex items-center gap-3
+           transition-all duration-200 cursor-pointer
+           shadow-[0_4px_24px_rgba(0,0,0,0.35)]
+           hover:shadow-[0_8px_36px_rgba(0,0,0,0.5)]
+           hover:-translate-y-0.5;
+  }
+
+  /* ─── Cards ───────────────────────────────────────────────── */
+
+  .stat-card {
+    @apply bg-white/[0.04] border border-white/[0.08] rounded-xl p-4
+           transition-colors duration-200 hover:border-amazon-orange/40;
+  }
+
+  .feature-card {
+    @apply bg-amazon-navy border border-white/[0.07] rounded-2xl p-8
+           relative overflow-hidden transition-all
+           hover:border-amazon-orange/30 hover:-translate-y-1
+           hover:shadow-[0_20px_48px_rgba(0,0,0,0.45)];
+  }
+
+  .feature-card-bar {
+    @apply absolute top-0 left-0 right-0 h-[3px]
+           bg-gradient-to-r from-amazon-orange to-transparent
+           opacity-0 transition-opacity ;
+  }
+  .feature-card:hover .feature-card-bar {
+    @apply opacity-100;
+  }
+
+  .step-card {
+    @apply bg-amazon-navy/60 border border-white/[0.07] rounded-2xl p-8
+           transition-all 
+           hover:border-amazon-orange/30
+           hover:shadow-[0_16px_40px_rgba(0,0,0,0.4)];
+  }
+
+  .prize-card {
+    @apply bg-gradient-to-br from-amazon-navy to-amazon-slate
+           border border-amazon-orange/25 rounded-2xl p-10 text-center
+           shadow-[0_28px_80px_rgba(0,0,0,0.6),inset_0_0_0_1px_rgba(255,153,0,0.08)]
+           w-[340px] relative z-10;
+  }
+
+  .review-card {
+    @apply bg-white/[0.04] border border-white/[0.07] rounded-xl p-5;
+  }
+
+  .metric-card {
+    @apply bg-amazon-navy border-l-4 border-amazon-orange rounded-r-xl p-5;
+  }
+
+  /* ─── Nav ─────────────────────────────────────────────────── */
+
+  .nav-link {
+    @apply text-white/70 text-sm font-medium
+           hover:text-amazon-orange transition-colors duration-200;
+  }
+
+  /* ─── Misc ────────────────────────────────────────────────── */
+
+  .section-label {
+    @apply text-xs uppercase tracking-[3px] text-amazon-orange font-semibold mb-3;
+  }
+
+  .section-heading {
+    @apply font-display leading-none mb-4;
+    font-size: clamp(40px, 5vw, 66px);
+  }
+
+  .orbital {
+    @apply absolute rounded-full border border-dashed border-amazon-orange/15 pointer-events-none;
+  }
+
+  .timer-unit {
+    @apply bg-white/[0.07] rounded-lg py-3 px-1 text-center;
+  }
+
+  .glass-panel {
+    @apply bg-white/[0.03] backdrop-blur-sm border border-white/10 rounded-2xl;
+  }
+}
+
+@layer utilities {
+  .gradient-text {
+    @apply bg-gradient-to-r from-amazon-orange to-amazon-orange-light
+           bg-clip-text text-transparent;
+  }
+
+  .text-glow {
+    text-shadow: 0 0 50px rgba(255, 153, 0, 0.5);
+  }
+
+  .hero-glow-l {
+    background: radial-gradient(ellipse, rgba(255,153,0,0.09) 0%, transparent 70%);
+  }
+
+  .hero-glow-r {
+    background: radial-gradient(ellipse, rgba(0,168,225,0.07) 0%, transparent 70%);
+  }
+}
