@@ -158,7 +158,7 @@ export default function LoginPage() {
                     required
                     value={formData.email}
                     onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-                    className="input pl-12"
+                    className="input pl-2 text-black"
                     placeholder="your@email.com"
                   />
                 </div>
@@ -176,7 +176,7 @@ export default function LoginPage() {
                     required
                     value={formData.password}
                     onChange={(e) => setFormData({ ...formData, password: e.target.value })}
-                    className="input pl-12 pr-12"
+                    className="input pl-2 pr-2 text-black"
                     placeholder="••••••••"
                   />
                   <button
