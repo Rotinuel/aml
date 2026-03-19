@@ -81,9 +81,9 @@ function LoginPage() {
                 localStorage.setItem('token', data.token);
                 localStorage.setItem('user', JSON.stringify(data.user));
                 if (data.user.role === 'admin') {
-                    router.push('/admin');
+                    window.location.href = '/admin';
                 } else {
-                    router.push('/dashboard');
+                    window.location.href = '/dashboard';
                 }
             } else {
                 __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$react$2d$hot$2d$toast$2f$dist$2f$index$2e$mjs__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"].error(data.error || 'Login failed');
