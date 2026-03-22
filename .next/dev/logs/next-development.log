@@ -1,6 +1,7 @@
-[00:00:06.236] Server  LOG     ✓ Ready in 4.8s
-[00:00:11.385] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
-[00:00:12.162] Browser ERROR   A tree hydrated but some attributes of the server rendered HTML didn't match the client properties. This won't be patched up. This can happen if a SSR-ed Client Component used:
+[00:00:12.305] Server  LOG     ✓ Ready in 9.5s
+[00:00:16.136] Server  LOG     ○ Compiling /auth/login ...
+[00:00:25.742] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[00:00:26.678] Browser ERROR   A tree hydrated but some attributes of the server rendered HTML didn't match the client properties. This won't be patched up. This can happen if a SSR-ed Client Component used:
 
 - A server/client branch `if (typeof window !== 'undefined')`.
 - Variable input such as `Date.now()` or `Math.random()` which changes each time it's called.
@@ -34,358 +35,261 @@ It can also happen if the client has a browser extension installed which messes 
                         >
                   ...
 
-[00:00:12.163] Browser WARN    Image with src "/logo.png" has either width or height modified, but not the other. If you use CSS to change the size of your image, also include the styles 'width: "auto"' or 'height: "auto"' to maintain the aspect ratio.
-[00:00:14.829] Browser WARN    Detected `scroll-behavior: smooth` on the `<html>` element. To disable smooth scrolling during route transitions, add `data-scroll-behavior="smooth"` to your <html> element. Learn more: https://nextjs.org/docs/messages/missing-data-scroll-behavior
-[00:00:31.248] Server  ERROR   ⨯ ./app/dashboard/page.js:6877:10
-Ecmascript file had an error
-  6875 |   const [loading, setLoading] = useState(false)
-  6876 |   const [step, setStep] = useState('form') // 'form' | 'pending'
-> 6877 |   const [cardType, setCardType] = useState('ecode') // 'ecode' | 'physical'
-       |          ^^^^^^^^
-  6878 |   const [cardImage, setCardImage] = useState(null)
-  6879 |   const [dragOver, setDragOver] = useState(false)
-  6880 |   const [showCamera, setShowCamera] = useState(false)
+[00:00:26.678] Browser WARN    Image with src "/logo.png" has either width or height modified, but not the other. If you use CSS to change the size of your image, also include the styles 'width: "auto"' or 'height: "auto"' to maintain the aspect ratio.
+[00:00:50.708] Browser WARN    Detected `scroll-behavior: smooth` on the `<html>` element. To disable smooth scrolling during route transitions, add `data-scroll-behavior="smooth"` to your <html> element. Learn more: https://nextjs.org/docs/messages/missing-data-scroll-behavior
+[00:01:12.782] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[00:01:13.329] Browser ERROR   A tree hydrated but some attributes of the server rendered HTML didn't match the client properties. This won't be patched up. This can happen if a SSR-ed Client Component used:
 
-the name `cardType` is defined multiple times
+- A server/client branch `if (typeof window !== 'undefined')`.
+- Variable input such as `Date.now()` or `Math.random()` which changes each time it's called.
+- Date formatting in a user's locale which doesn't match the server.
+- External changing data without sending a snapshot of it along with the HTML.
+- Invalid HTML tag nesting.
 
-Import traces:
-  Client Component Browser:
-    ./app/dashboard/page.js [Client Component Browser]
-    ./app/dashboard/page.js [Server Component]
+It can also happen if the client has a browser extension installed which messes with the HTML before React loaded.
 
-  Client Component SSR:
-    ./app/dashboard/page.js [Client Component SSR]
-    ./app/dashboard/page.js [Server Component]
+%s%s https://react.dev/link/hydration-mismatch 
 
+  ...
+    <HotReload globalError={[...]} webSocket={WebSocket} staticIndicatorState={{pathname:null, ...}}>
+      <AppDevOverlayErrorBoundary globalError={[...]}>
+        <ReplaySsrOnlyErrors>
+        <DevRootHTTPAccessFallbackBoundary>
+          <HTTPAccessFallbackBoundary notFound={<NotAllowedRootHTTPFallbackError>}>
+            <HTTPAccessFallbackErrorBoundary pathname="/dashboard" notFound={<NotAllowedRootHTTPFallbackError>} ...>
+              <RedirectBoundary>
+                <RedirectErrorBoundary router={{...}}>
+                  <Head>
+                  <__next_root_layout_boundary__>
+                    <SegmentViewNode type="layout" pagePath="layout.js">
+                      <SegmentTrieNode>
+                      <link>
+                      <script>
+                      <RootLayout>
+                        <html
+                          lang="en"
+-                         crxlauncher=""
+                        >
+                  ...
 
+[00:04:06.064] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[00:04:06.476] Browser ERROR   A tree hydrated but some attributes of the server rendered HTML didn't match the client properties. This won't be patched up. This can happen if a SSR-ed Client Component used:
 
-./app/dashboard/page.js:6877:20
-Ecmascript file had an error
-  6875 |   const [loading, setLoading] = useState(false)
-  6876 |   const [step, setStep] = useState('form') // 'form' | 'pending'
-> 6877 |   const [cardType, setCardType] = useState('ecode') // 'ecode' | 'physical'
-       |                    ^^^^^^^^^^^
-  6878 |   const [cardImage, setCardImage] = useState(null)
-  6879 |   const [dragOver, setDragOver] = useState(false)
-  6880 |   const [showCamera, setShowCamera] = useState(false)
+- A server/client branch `if (typeof window !== 'undefined')`.
+- Variable input such as `Date.now()` or `Math.random()` which changes each time it's called.
+- Date formatting in a user's locale which doesn't match the server.
+- External changing data without sending a snapshot of it along with the HTML.
+- Invalid HTML tag nesting.
 
-the name `setCardType` is defined multiple times
+It can also happen if the client has a browser extension installed which messes with the HTML before React loaded.
 
-Import traces:
-  Client Component Browser:
-    ./app/dashboard/page.js [Client Component Browser]
-    ./app/dashboard/page.js [Server Component]
+%s%s https://react.dev/link/hydration-mismatch 
 
-  Client Component SSR:
-    ./app/dashboard/page.js [Client Component SSR]
-    ./app/dashboard/page.js [Server Component]
+  ...
+    <HotReload globalError={[...]} webSocket={WebSocket} staticIndicatorState={{pathname:null, ...}}>
+      <AppDevOverlayErrorBoundary globalError={[...]}>
+        <ReplaySsrOnlyErrors>
+        <DevRootHTTPAccessFallbackBoundary>
+          <HTTPAccessFallbackBoundary notFound={<NotAllowedRootHTTPFallbackError>}>
+            <HTTPAccessFallbackErrorBoundary pathname="/admin" notFound={<NotAllowedRootHTTPFallbackError>} ...>
+              <RedirectBoundary>
+                <RedirectErrorBoundary router={{...}}>
+                  <Head>
+                  <__next_root_layout_boundary__>
+                    <SegmentViewNode type="layout" pagePath="layout.js">
+                      <SegmentTrieNode>
+                      <link>
+                      <script>
+                      <RootLayout>
+                        <html
+                          lang="en"
+-                         crxlauncher=""
+                        >
+                  ...
 
+[00:04:07.148] Browser WARN    Detected `scroll-behavior: smooth` on the `<html>` element. To disable smooth scrolling during route transitions, add `data-scroll-behavior="smooth"` to your <html> element. Learn more: https://nextjs.org/docs/messages/missing-data-scroll-behavior
+[00:04:12.396] Browser WARN    Image with src "/logo.png" has either width or height modified, but not the other. If you use CSS to change the size of your image, also include the styles 'width: "auto"' or 'height: "auto"' to maintain the aspect ratio.
+[00:04:37.421] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[00:04:37.707] Browser ERROR   A tree hydrated but some attributes of the server rendered HTML didn't match the client properties. This won't be patched up. This can happen if a SSR-ed Client Component used:
 
-[00:00:31.750] Browser ERROR   ./app/dashboard/page.js:6877:10
-Ecmascript file had an error
-  6875 |   const [loading, setLoading] = useState(false)
-  6876 |   const [step, setStep] = useState('form') // 'form' | 'pending'
-> 6877 |   const [cardType, setCardType] = useState('ecode') // 'ecode' | 'physical'
-       |          ^^^^^^^^
-  6878 |   const [cardImage, setCardImage] = useState(null)
-  6879 |   const [dragOver, setDragOver] = useState(false)
-  6880 |   const [showCamera, setShowCamera] = useState(false)
+- A server/client branch `if (typeof window !== 'undefined')`.
+- Variable input such as `Date.now()` or `Math.random()` which changes each time it's called.
+- Date formatting in a user's locale which doesn't match the server.
+- External changing data without sending a snapshot of it along with the HTML.
+- Invalid HTML tag nesting.
 
-the name `cardType` is defined multiple times
+It can also happen if the client has a browser extension installed which messes with the HTML before React loaded.
 
-Import traces:
-  Client Component Browser:
-    ./app/dashboard/page.js [Client Component Browser]
-    ./app/dashboard/page.js [Server Component]
+%s%s https://react.dev/link/hydration-mismatch 
 
-  Client Component SSR:
-    ./app/dashboard/page.js [Client Component SSR]
-    ./app/dashboard/page.js [Server Component]
-[00:00:31.750] Browser ERROR   ./app/dashboard/page.js:6877:20
-Ecmascript file had an error
-  6875 |   const [loading, setLoading] = useState(false)
-  6876 |   const [step, setStep] = useState('form') // 'form' | 'pending'
-> 6877 |   const [cardType, setCardType] = useState('ecode') // 'ecode' | 'physical'
-       |                    ^^^^^^^^^^^
-  6878 |   const [cardImage, setCardImage] = useState(null)
-  6879 |   const [dragOver, setDragOver] = useState(false)
-  6880 |   const [showCamera, setShowCamera] = useState(false)
+  ...
+    <HotReload globalError={[...]} webSocket={WebSocket} staticIndicatorState={{pathname:null, ...}}>
+      <AppDevOverlayErrorBoundary globalError={[...]}>
+        <ReplaySsrOnlyErrors>
+        <DevRootHTTPAccessFallbackBoundary>
+          <HTTPAccessFallbackBoundary notFound={<NotAllowedRootHTTPFallbackError>}>
+            <HTTPAccessFallbackErrorBoundary pathname="/admin" notFound={<NotAllowedRootHTTPFallbackError>} ...>
+              <RedirectBoundary>
+                <RedirectErrorBoundary router={{...}}>
+                  <Head>
+                  <__next_root_layout_boundary__>
+                    <SegmentViewNode type="layout" pagePath="layout.js">
+                      <SegmentTrieNode>
+                      <link>
+                      <script>
+                      <RootLayout>
+                        <html
+                          lang="en"
+-                         crxlauncher=""
+                        >
+                  ...
 
-the name `setCardType` is defined multiple times
+[00:06:02.524] Browser WARN    Detected `scroll-behavior: smooth` on the `<html>` element. To disable smooth scrolling during route transitions, add `data-scroll-behavior="smooth"` to your <html> element. Learn more: https://nextjs.org/docs/messages/missing-data-scroll-behavior
+[00:06:02.524] Browser WARN    Image with src "/logo.png" has either width or height modified, but not the other. If you use CSS to change the size of your image, also include the styles 'width: "auto"' or 'height: "auto"' to maintain the aspect ratio.
+[00:06:35.731] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[00:06:36.185] Browser ERROR   A tree hydrated but some attributes of the server rendered HTML didn't match the client properties. This won't be patched up. This can happen if a SSR-ed Client Component used:
 
-Import traces:
-  Client Component Browser:
-    ./app/dashboard/page.js [Client Component Browser]
-    ./app/dashboard/page.js [Server Component]
+- A server/client branch `if (typeof window !== 'undefined')`.
+- Variable input such as `Date.now()` or `Math.random()` which changes each time it's called.
+- Date formatting in a user's locale which doesn't match the server.
+- External changing data without sending a snapshot of it along with the HTML.
+- Invalid HTML tag nesting.
 
-  Client Component SSR:
-    ./app/dashboard/page.js [Client Component SSR]
-    ./app/dashboard/page.js [Server Component]
-[00:00:31.750] Browser ERROR   ./app/dashboard/page.js:6877:10
-Ecmascript file had an error
-  6875 |   const [loading, setLoading] = useState(false)
-  6876 |   const [step, setStep] = useState('form') // 'form' | 'pending'
-> 6877 |   const [cardType, setCardType] = useState('ecode') // 'ecode' | 'physical'
-       |          ^^^^^^^^
-  6878 |   const [cardImage, setCardImage] = useState(null)
-  6879 |   const [dragOver, setDragOver] = useState(false)
-  6880 |   const [showCamera, setShowCamera] = useState(false)
+It can also happen if the client has a browser extension installed which messes with the HTML before React loaded.
 
-the name `cardType` is defined multiple times
+%s%s https://react.dev/link/hydration-mismatch 
 
-Import traces:
-  Client Component Browser:
-    ./app/dashboard/page.js [Client Component Browser]
-    ./app/dashboard/page.js [Server Component]
+  ...
+    <HotReload globalError={[...]} webSocket={WebSocket} staticIndicatorState={{pathname:null, ...}}>
+      <AppDevOverlayErrorBoundary globalError={[...]}>
+        <ReplaySsrOnlyErrors>
+        <DevRootHTTPAccessFallbackBoundary>
+          <HTTPAccessFallbackBoundary notFound={<NotAllowedRootHTTPFallbackError>}>
+            <HTTPAccessFallbackErrorBoundary pathname="/dashboard" notFound={<NotAllowedRootHTTPFallbackError>} ...>
+              <RedirectBoundary>
+                <RedirectErrorBoundary router={{...}}>
+                  <Head>
+                  <__next_root_layout_boundary__>
+                    <SegmentViewNode type="layout" pagePath="layout.js">
+                      <SegmentTrieNode>
+                      <link>
+                      <script>
+                      <RootLayout>
+                        <html
+                          lang="en"
+-                         crxlauncher=""
+                        >
+                  ...
 
-  Client Component SSR:
-    ./app/dashboard/page.js [Client Component SSR]
-    ./app/dashboard/page.js [Server Component]
-[00:00:31.750] Browser ERROR   ./app/dashboard/page.js:6877:20
-Ecmascript file had an error
-  6875 |   const [loading, setLoading] = useState(false)
-  6876 |   const [step, setStep] = useState('form') // 'form' | 'pending'
-> 6877 |   const [cardType, setCardType] = useState('ecode') // 'ecode' | 'physical'
-       |                    ^^^^^^^^^^^
-  6878 |   const [cardImage, setCardImage] = useState(null)
-  6879 |   const [dragOver, setDragOver] = useState(false)
-  6880 |   const [showCamera, setShowCamera] = useState(false)
+[18:00:34.054] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[18:00:34.992] Browser ERROR   A tree hydrated but some attributes of the server rendered HTML didn't match the client properties. This won't be patched up. This can happen if a SSR-ed Client Component used:
 
-the name `setCardType` is defined multiple times
+- A server/client branch `if (typeof window !== 'undefined')`.
+- Variable input such as `Date.now()` or `Math.random()` which changes each time it's called.
+- Date formatting in a user's locale which doesn't match the server.
+- External changing data without sending a snapshot of it along with the HTML.
+- Invalid HTML tag nesting.
 
-Import traces:
-  Client Component Browser:
-    ./app/dashboard/page.js [Client Component Browser]
-    ./app/dashboard/page.js [Server Component]
+It can also happen if the client has a browser extension installed which messes with the HTML before React loaded.
 
-  Client Component SSR:
-    ./app/dashboard/page.js [Client Component SSR]
-    ./app/dashboard/page.js [Server Component]
-[00:00:31.750] Browser ERROR   ./app/dashboard/page.js:6877:10
-Ecmascript file had an error
-  6875 |   const [loading, setLoading] = useState(false)
-  6876 |   const [step, setStep] = useState('form') // 'form' | 'pending'
-> 6877 |   const [cardType, setCardType] = useState('ecode') // 'ecode' | 'physical'
-       |          ^^^^^^^^
-  6878 |   const [cardImage, setCardImage] = useState(null)
-  6879 |   const [dragOver, setDragOver] = useState(false)
-  6880 |   const [showCamera, setShowCamera] = useState(false)
+%s%s https://react.dev/link/hydration-mismatch 
 
-the name `cardType` is defined multiple times
+  ...
+    <HotReload globalError={[...]} webSocket={WebSocket} staticIndicatorState={{pathname:null, ...}}>
+      <AppDevOverlayErrorBoundary globalError={[...]}>
+        <ReplaySsrOnlyErrors>
+        <DevRootHTTPAccessFallbackBoundary>
+          <HTTPAccessFallbackBoundary notFound={<NotAllowedRootHTTPFallbackError>}>
+            <HTTPAccessFallbackErrorBoundary pathname="/dashboard" notFound={<NotAllowedRootHTTPFallbackError>} ...>
+              <RedirectBoundary>
+                <RedirectErrorBoundary router={{...}}>
+                  <Head>
+                  <__next_root_layout_boundary__>
+                    <SegmentViewNode type="layout" pagePath="layout.js">
+                      <SegmentTrieNode>
+                      <link>
+                      <script>
+                      <RootLayout>
+                        <html
+                          lang="en"
+-                         crxlauncher=""
+                        >
+                  ...
 
-Import traces:
-  Client Component Browser:
-    ./app/dashboard/page.js [Client Component Browser]
-    ./app/dashboard/page.js [Server Component]
+[18:03:00.625] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[18:03:01.739] Browser ERROR   A tree hydrated but some attributes of the server rendered HTML didn't match the client properties. This won't be patched up. This can happen if a SSR-ed Client Component used:
 
-  Client Component SSR:
-    ./app/dashboard/page.js [Client Component SSR]
-    ./app/dashboard/page.js [Server Component]
-[00:00:31.750] Browser ERROR   ./app/dashboard/page.js:6877:20
-Ecmascript file had an error
-  6875 |   const [loading, setLoading] = useState(false)
-  6876 |   const [step, setStep] = useState('form') // 'form' | 'pending'
-> 6877 |   const [cardType, setCardType] = useState('ecode') // 'ecode' | 'physical'
-       |                    ^^^^^^^^^^^
-  6878 |   const [cardImage, setCardImage] = useState(null)
-  6879 |   const [dragOver, setDragOver] = useState(false)
-  6880 |   const [showCamera, setShowCamera] = useState(false)
+- A server/client branch `if (typeof window !== 'undefined')`.
+- Variable input such as `Date.now()` or `Math.random()` which changes each time it's called.
+- Date formatting in a user's locale which doesn't match the server.
+- External changing data without sending a snapshot of it along with the HTML.
+- Invalid HTML tag nesting.
 
-the name `setCardType` is defined multiple times
+It can also happen if the client has a browser extension installed which messes with the HTML before React loaded.
 
-Import traces:
-  Client Component Browser:
-    ./app/dashboard/page.js [Client Component Browser]
-    ./app/dashboard/page.js [Server Component]
+%s%s https://react.dev/link/hydration-mismatch 
 
-  Client Component SSR:
-    ./app/dashboard/page.js [Client Component SSR]
-    ./app/dashboard/page.js [Server Component]
-[00:00:32.946] Browser ERROR   ./app/dashboard/page.js:6877:10
-Ecmascript file had an error
-  6875 |   const [loading, setLoading] = useState(false)
-  6876 |   const [step, setStep] = useState('form') // 'form' | 'pending'
-> 6877 |   const [cardType, setCardType] = useState('ecode') // 'ecode' | 'physical'
-       |          ^^^^^^^^
-  6878 |   const [cardImage, setCardImage] = useState(null)
-  6879 |   const [dragOver, setDragOver] = useState(false)
-  6880 |   const [showCamera, setShowCamera] = useState(false)
+  ...
+    <HotReload globalError={[...]} webSocket={WebSocket} staticIndicatorState={{pathname:null, ...}}>
+      <AppDevOverlayErrorBoundary globalError={[...]}>
+        <ReplaySsrOnlyErrors>
+        <DevRootHTTPAccessFallbackBoundary>
+          <HTTPAccessFallbackBoundary notFound={<NotAllowedRootHTTPFallbackError>}>
+            <HTTPAccessFallbackErrorBoundary pathname="/" notFound={<NotAllowedRootHTTPFallbackError>} ...>
+              <RedirectBoundary>
+                <RedirectErrorBoundary router={{...}}>
+                  <Head>
+                  <__next_root_layout_boundary__>
+                    <SegmentViewNode type="layout" pagePath="layout.js">
+                      <SegmentTrieNode>
+                      <link>
+                      <script>
+                      <RootLayout>
+                        <html
+                          lang="en"
+-                         crxlauncher=""
+                        >
+                  ...
 
-the name `cardType` is defined multiple times
+[18:03:01.739] Browser WARN    Image with src "/logo.png" has either width or height modified, but not the other. If you use CSS to change the size of your image, also include the styles 'width: "auto"' or 'height: "auto"' to maintain the aspect ratio.
+[18:03:29.789] Browser WARN    Detected `scroll-behavior: smooth` on the `<html>` element. To disable smooth scrolling during route transitions, add `data-scroll-behavior="smooth"` to your <html> element. Learn more: https://nextjs.org/docs/messages/missing-data-scroll-behavior
+[18:03:39.327] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[18:03:39.775] Browser ERROR   A tree hydrated but some attributes of the server rendered HTML didn't match the client properties. This won't be patched up. This can happen if a SSR-ed Client Component used:
 
-Import traces:
-  Client Component Browser:
-    ./app/dashboard/page.js [Client Component Browser]
-    ./app/dashboard/page.js [Server Component]
+- A server/client branch `if (typeof window !== 'undefined')`.
+- Variable input such as `Date.now()` or `Math.random()` which changes each time it's called.
+- Date formatting in a user's locale which doesn't match the server.
+- External changing data without sending a snapshot of it along with the HTML.
+- Invalid HTML tag nesting.
 
-  Client Component SSR:
-    ./app/dashboard/page.js [Client Component SSR]
-    ./app/dashboard/page.js [Server Component]
-[00:00:32.946] Browser ERROR   ./app/dashboard/page.js:6877:20
-Ecmascript file had an error
-  6875 |   const [loading, setLoading] = useState(false)
-  6876 |   const [step, setStep] = useState('form') // 'form' | 'pending'
-> 6877 |   const [cardType, setCardType] = useState('ecode') // 'ecode' | 'physical'
-       |                    ^^^^^^^^^^^
-  6878 |   const [cardImage, setCardImage] = useState(null)
-  6879 |   const [dragOver, setDragOver] = useState(false)
-  6880 |   const [showCamera, setShowCamera] = useState(false)
+It can also happen if the client has a browser extension installed which messes with the HTML before React loaded.
 
-the name `setCardType` is defined multiple times
+%s%s https://react.dev/link/hydration-mismatch 
 
-Import traces:
-  Client Component Browser:
-    ./app/dashboard/page.js [Client Component Browser]
-    ./app/dashboard/page.js [Server Component]
+  ...
+    <HotReload globalError={[...]} webSocket={WebSocket} staticIndicatorState={{pathname:null, ...}}>
+      <AppDevOverlayErrorBoundary globalError={[...]}>
+        <ReplaySsrOnlyErrors>
+        <DevRootHTTPAccessFallbackBoundary>
+          <HTTPAccessFallbackBoundary notFound={<NotAllowedRootHTTPFallbackError>}>
+            <HTTPAccessFallbackErrorBoundary pathname="/dashboard" notFound={<NotAllowedRootHTTPFallbackError>} ...>
+              <RedirectBoundary>
+                <RedirectErrorBoundary router={{...}}>
+                  <Head>
+                  <__next_root_layout_boundary__>
+                    <SegmentViewNode type="layout" pagePath="layout.js">
+                      <SegmentTrieNode>
+                      <link>
+                      <script>
+                      <RootLayout>
+                        <html
+                          lang="en"
+-                         crxlauncher=""
+                        >
+                  ...
 
-  Client Component SSR:
-    ./app/dashboard/page.js [Client Component SSR]
-    ./app/dashboard/page.js [Server Component]
-[00:00:32.946] Browser ERROR   ./app/dashboard/page.js:6877:10
-Ecmascript file had an error
-  6875 |   const [loading, setLoading] = useState(false)
-  6876 |   const [step, setStep] = useState('form') // 'form' | 'pending'
-> 6877 |   const [cardType, setCardType] = useState('ecode') // 'ecode' | 'physical'
-       |          ^^^^^^^^
-  6878 |   const [cardImage, setCardImage] = useState(null)
-  6879 |   const [dragOver, setDragOver] = useState(false)
-  6880 |   const [showCamera, setShowCamera] = useState(false)
-
-the name `cardType` is defined multiple times
-
-Import traces:
-  Client Component Browser:
-    ./app/dashboard/page.js [Client Component Browser]
-    ./app/dashboard/page.js [Server Component]
-
-  Client Component SSR:
-    ./app/dashboard/page.js [Client Component SSR]
-    ./app/dashboard/page.js [Server Component]
-[00:00:32.946] Browser ERROR   ./app/dashboard/page.js:6877:20
-Ecmascript file had an error
-  6875 |   const [loading, setLoading] = useState(false)
-  6876 |   const [step, setStep] = useState('form') // 'form' | 'pending'
-> 6877 |   const [cardType, setCardType] = useState('ecode') // 'ecode' | 'physical'
-       |                    ^^^^^^^^^^^
-  6878 |   const [cardImage, setCardImage] = useState(null)
-  6879 |   const [dragOver, setDragOver] = useState(false)
-  6880 |   const [showCamera, setShowCamera] = useState(false)
-
-the name `setCardType` is defined multiple times
-
-Import traces:
-  Client Component Browser:
-    ./app/dashboard/page.js [Client Component Browser]
-    ./app/dashboard/page.js [Server Component]
-
-  Client Component SSR:
-    ./app/dashboard/page.js [Client Component SSR]
-    ./app/dashboard/page.js [Server Component]
-[00:00:33.826] Browser ERROR   uncaughtError: Error: ./app/dashboard/page.js:6877:10
-Ecmascript file had an error
-  6875 |   const [loading, setLoading] = useState(false)
-  6876 |   const [step, setStep] = useState('form') // 'form' | 'pending'
-> 6877 |   const [cardType, setCardType] = useState('ecode') // 'ecode' | 'physical'
-       |          ^^^^^^^^
-  6878 |   const [cardImage, setCardImage] = useState(null)
-  6879 |   const [dragOver, setDragOver] = useState(false)
-  6880 |   const [showCamera, setShowCamera] = useState(false)
-
-the name `cardType` is defined multiple times
-
-Import traces:
-  Client Component Browser:
-    ./app/dashboard/page.js [Client Component Browser]
-    ./app/dashboard/page.js [Server Component]
-
-  Client Component SSR:
-    ./app/dashboard/page.js [Client Component SSR]
-    ./app/dashboard/page.js [Server Component]
-
-
-[00:00:33.995] Browser ERROR   ./app/dashboard/page.js:6877:10
-Ecmascript file had an error
-  6875 |   const [loading, setLoading] = useState(false)
-  6876 |   const [step, setStep] = useState('form') // 'form' | 'pending'
-> 6877 |   const [cardType, setCardType] = useState('ecode') // 'ecode' | 'physical'
-       |          ^^^^^^^^
-  6878 |   const [cardImage, setCardImage] = useState(null)
-  6879 |   const [dragOver, setDragOver] = useState(false)
-  6880 |   const [showCamera, setShowCamera] = useState(false)
-
-the name `cardType` is defined multiple times
-
-Import traces:
-  Client Component Browser:
-    ./app/dashboard/page.js [Client Component Browser]
-    ./app/dashboard/page.js [Server Component]
-
-  Client Component SSR:
-    ./app/dashboard/page.js [Client Component SSR]
-    ./app/dashboard/page.js [Server Component]
-[00:00:33.995] Browser ERROR   ./app/dashboard/page.js:6877:20
-Ecmascript file had an error
-  6875 |   const [loading, setLoading] = useState(false)
-  6876 |   const [step, setStep] = useState('form') // 'form' | 'pending'
-> 6877 |   const [cardType, setCardType] = useState('ecode') // 'ecode' | 'physical'
-       |                    ^^^^^^^^^^^
-  6878 |   const [cardImage, setCardImage] = useState(null)
-  6879 |   const [dragOver, setDragOver] = useState(false)
-  6880 |   const [showCamera, setShowCamera] = useState(false)
-
-the name `setCardType` is defined multiple times
-
-Import traces:
-  Client Component Browser:
-    ./app/dashboard/page.js [Client Component Browser]
-    ./app/dashboard/page.js [Server Component]
-
-  Client Component SSR:
-    ./app/dashboard/page.js [Client Component SSR]
-    ./app/dashboard/page.js [Server Component]
-[00:00:34.189] Browser ERROR   ./app/dashboard/page.js:6877:10
-Ecmascript file had an error
-  6875 |   const [loading, setLoading] = useState(false)
-  6876 |   const [step, setStep] = useState('form') // 'form' | 'pending'
-> 6877 |   const [cardType, setCardType] = useState('ecode') // 'ecode' | 'physical'
-       |          ^^^^^^^^
-  6878 |   const [cardImage, setCardImage] = useState(null)
-  6879 |   const [dragOver, setDragOver] = useState(false)
-  6880 |   const [showCamera, setShowCamera] = useState(false)
-
-the name `cardType` is defined multiple times
-
-Import traces:
-  Client Component Browser:
-    ./app/dashboard/page.js [Client Component Browser]
-    ./app/dashboard/page.js [Server Component]
-
-  Client Component SSR:
-    ./app/dashboard/page.js [Client Component SSR]
-    ./app/dashboard/page.js [Server Component]
-[00:00:34.189] Browser ERROR   ./app/dashboard/page.js:6877:20
-Ecmascript file had an error
-  6875 |   const [loading, setLoading] = useState(false)
-  6876 |   const [step, setStep] = useState('form') // 'form' | 'pending'
-> 6877 |   const [cardType, setCardType] = useState('ecode') // 'ecode' | 'physical'
-       |                    ^^^^^^^^^^^
-  6878 |   const [cardImage, setCardImage] = useState(null)
-  6879 |   const [dragOver, setDragOver] = useState(false)
-  6880 |   const [showCamera, setShowCamera] = useState(false)
-
-the name `setCardType` is defined multiple times
-
-Import traces:
-  Client Component Browser:
-    ./app/dashboard/page.js [Client Component Browser]
-    ./app/dashboard/page.js [Server Component]
-
-  Client Component SSR:
-    ./app/dashboard/page.js [Client Component SSR]
-    ./app/dashboard/page.js [Server Component]
-[00:01:33.000] Server  LOG     ✓ Compiled in 12.4s
-[00:01:37.941] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
-[00:01:38.726] Browser ERROR   A tree hydrated but some attributes of the server rendered HTML didn't match the client properties. This won't be patched up. This can happen if a SSR-ed Client Component used:
+[19:53:05.096] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[19:53:06.061] Browser ERROR   A tree hydrated but some attributes of the server rendered HTML didn't match the client properties. This won't be patched up. This can happen if a SSR-ed Client Component used:
 
 - A server/client branch `if (typeof window !== 'undefined')`.
 - Variable input such as `Date.now()` or `Math.random()` which changes each time it's called.
