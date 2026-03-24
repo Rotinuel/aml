@@ -708,7 +708,7 @@ export default function DashboardPage() {
     <div className="min-h-screen bg-dark-950">
 
       {/* ─── HEADER ─────────────────────────────────────────────────────────── */}
-      <header className="glass border-b border-white/10 sticky top-0 z-40">
+      <header className="sticky top-0 z-40 border-b border-white/10" style={{ background: '#0a0a14' }}>
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-3 sm:py-4">
           <div className="flex justify-between items-center">
             <div className="flex items-center gap-2 shrink-0">

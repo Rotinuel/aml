@@ -45,111 +45,262 @@ module.exports = mod;
 "use strict";
 
 __turbopack_context__.s([
+    "Event",
+    ()=>Event,
+    "Ticket",
+    ()=>Ticket,
+    "User",
+    ()=>User,
+    "connectDB",
+    ()=>connectDB,
     "db",
     ()=>db
 ]);
-// lib/db.js - MongoDB connection
-// Note: In production, use actual MongoDB. This is a simplified version.
-let users = [];
-let events = [];
-let tickets = [];
-// Initialize with demo data
-if ("TURBOPACK compile-time truthy", 1) {
-    users = [
-        {
-            id: '1',
-            name: 'Demo User',
-            email: 'user@demo.com',
-            password: '$2a$10$YourHashedPasswordHere',
-            role: 'user',
-            balance: 1000,
-            createdAt: new Date()
-        },
-        {
-            id: '2',
-            name: 'Admin User',
-            email: 'admin@demo.com',
-            password: '$2a$10$YourHashedPasswordHere',
-            role: 'admin',
-            balance: 0,
-            createdAt: new Date()
-        }
-    ];
-    events = [
-        {
-            id: '1',
-            name: 'Mega Jackpot 2026',
-            description: 'Win life-changing prizes',
-            prize: 100000,
-            ticketPrice: 50,
-            totalTickets: 1000,
-            soldTickets: 342,
-            drawDate: new Date('2026-03-15T20:00:00'),
-            status: 'active',
-            createdAt: new Date()
-        },
-        {
-            id: '2',
-            name: 'Weekly Winners',
-            description: 'Weekly draws with great prizes',
-            prize: 5000,
-            ticketPrice: 10,
-            totalTickets: 500,
-            soldTickets: 189,
-            drawDate: new Date('2026-02-14T18:00:00'),
-            status: 'active',
-            createdAt: new Date()
-        }
-    ];
+var __TURBOPACK__imported__module__$5b$externals$5d2f$mongoose__$5b$external$5d$__$28$mongoose$2c$__cjs$2c$__$5b$project$5d2f$node_modules$2f$mongoose$29$__ = __turbopack_context__.i("[externals]/mongoose [external] (mongoose, cjs, [project]/node_modules/mongoose)");
+;
+const MONGODB_URI = process.env.MONGODB_URI;
+if (!MONGODB_URI) {
+    throw new Error('Please define MONGODB_URI in your .env.local file');
 }
+// ─── Connection Cache (prevents multiple connections during hot reload) ────────
+let cached = /*TURBOPACK member replacement*/ __turbopack_context__.g._mongoose;
+if (!cached) {
+    cached = /*TURBOPACK member replacement*/ __turbopack_context__.g._mongoose = {
+        conn: null,
+        promise: null
+    };
+}
+async function connectDB() {
+    if (cached.conn) return cached.conn;
+    if (!cached.promise) {
+        cached.promise = __TURBOPACK__imported__module__$5b$externals$5d2f$mongoose__$5b$external$5d$__$28$mongoose$2c$__cjs$2c$__$5b$project$5d2f$node_modules$2f$mongoose$29$__["default"].connect(MONGODB_URI, {
+            bufferCommands: false
+        });
+    }
+    cached.conn = await cached.promise;
+    return cached.conn;
+}
+// ─── User Schema ──────────────────────────────────────────────────────────────
+const UserSchema = new __TURBOPACK__imported__module__$5b$externals$5d2f$mongoose__$5b$external$5d$__$28$mongoose$2c$__cjs$2c$__$5b$project$5d2f$node_modules$2f$mongoose$29$__["default"].Schema({
+    name: {
+        type: String,
+        required: [
+            true,
+            'Name is required'
+        ],
+        trim: true,
+        minlength: [
+            2,
+            'Name must be at least 2 characters'
+        ]
+    },
+    email: {
+        type: String,
+        required: [
+            true,
+            'Email is required'
+        ],
+        unique: true,
+        lowercase: true,
+        trim: true,
+        match: [
+            /^\S+@\S+\.\S+$/,
+            'Please enter a valid email'
+        ]
+    },
+    password: {
+        type: String,
+        required: [
+            true,
+            'Password is required'
+        ]
+    },
+    role: {
+        type: String,
+        enum: [
+            'user',
+            'admin'
+        ],
+        default: 'user'
+    },
+    balance: {
+        type: Number,
+        default: 0,
+        min: 0
+    }
+}, {
+    timestamps: true
+});
+// ─── Event Schema ─────────────────────────────────────────────────────────────
+const EventSchema = new __TURBOPACK__imported__module__$5b$externals$5d2f$mongoose__$5b$external$5d$__$28$mongoose$2c$__cjs$2c$__$5b$project$5d2f$node_modules$2f$mongoose$29$__["default"].Schema({
+    name: {
+        type: String,
+        required: true,
+        trim: true
+    },
+    description: {
+        type: String,
+        trim: true
+    },
+    prize: {
+        type: Number,
+        required: true
+    },
+    ticketPrice: {
+        type: Number,
+        required: true
+    },
+    totalTickets: {
+        type: Number,
+        required: true
+    },
+    soldTickets: {
+        type: Number,
+        default: 0
+    },
+    drawDate: {
+        type: Date,
+        required: true
+    },
+    status: {
+        type: String,
+        enum: [
+            'active',
+            'completed',
+            'cancelled'
+        ],
+        default: 'active'
+    }
+}, {
+    timestamps: true
+});
+// ─── Ticket Schema ────────────────────────────────────────────────────────────
+const TicketSchema = new __TURBOPACK__imported__module__$5b$externals$5d2f$mongoose__$5b$external$5d$__$28$mongoose$2c$__cjs$2c$__$5b$project$5d2f$node_modules$2f$mongoose$29$__["default"].Schema({
+    userId: {
+        type: __TURBOPACK__imported__module__$5b$externals$5d2f$mongoose__$5b$external$5d$__$28$mongoose$2c$__cjs$2c$__$5b$project$5d2f$node_modules$2f$mongoose$29$__["default"].Schema.Types.ObjectId,
+        ref: 'User',
+        required: true
+    },
+    eventId: {
+        type: __TURBOPACK__imported__module__$5b$externals$5d2f$mongoose__$5b$external$5d$__$28$mongoose$2c$__cjs$2c$__$5b$project$5d2f$node_modules$2f$mongoose$29$__["default"].Schema.Types.ObjectId,
+        ref: 'Event',
+        required: true
+    },
+    eventName: {
+        type: String
+    },
+    quantity: {
+        type: Number,
+        required: true,
+        min: 1
+    },
+    totalCost: {
+        type: Number,
+        required: true
+    },
+    ticketNumbers: [
+        {
+            type: String
+        }
+    ],
+    purchaseDate: {
+        type: Date,
+        default: Date.now
+    }
+}, {
+    timestamps: true
+});
+const User = __TURBOPACK__imported__module__$5b$externals$5d2f$mongoose__$5b$external$5d$__$28$mongoose$2c$__cjs$2c$__$5b$project$5d2f$node_modules$2f$mongoose$29$__["default"].models.User || __TURBOPACK__imported__module__$5b$externals$5d2f$mongoose__$5b$external$5d$__$28$mongoose$2c$__cjs$2c$__$5b$project$5d2f$node_modules$2f$mongoose$29$__["default"].model('User', UserSchema);
+const Event = __TURBOPACK__imported__module__$5b$externals$5d2f$mongoose__$5b$external$5d$__$28$mongoose$2c$__cjs$2c$__$5b$project$5d2f$node_modules$2f$mongoose$29$__["default"].models.Event || __TURBOPACK__imported__module__$5b$externals$5d2f$mongoose__$5b$external$5d$__$28$mongoose$2c$__cjs$2c$__$5b$project$5d2f$node_modules$2f$mongoose$29$__["default"].model('Event', EventSchema);
+const Ticket = __TURBOPACK__imported__module__$5b$externals$5d2f$mongoose__$5b$external$5d$__$28$mongoose$2c$__cjs$2c$__$5b$project$5d2f$node_modules$2f$mongoose$29$__["default"].models.Ticket || __TURBOPACK__imported__module__$5b$externals$5d2f$mongoose__$5b$external$5d$__$28$mongoose$2c$__cjs$2c$__$5b$project$5d2f$node_modules$2f$mongoose$29$__["default"].model('Ticket', TicketSchema);
 const db = {
-    users,
-    events,
-    tickets,
-    // User methods
-    findUserByEmail (email) {
-        return this.users.find((u)=>u.email === email);
+    // ── User methods ────────────────────────────────────────────────────────────
+    async findUserByEmail (email) {
+        await connectDB();
+        return User.findOne({
+            email: email.toLowerCase().trim()
+        });
     },
-    createUser (userData) {
-        const user = {
-            id: Date.now().toString(),
-            ...userData,
-            balance: 1000,
-            createdAt: new Date()
-        };
-        this.users.push(user);
-        return user;
+    async findUserById (id) {
+        await connectDB();
+        return User.findById(id);
     },
-    // Event methods
-    getActiveEvents () {
-        return this.events.filter((e)=>e.status === 'active');
+    async createUser (userData) {
+        await connectDB();
+        return User.create(userData);
     },
-    getEventById (id) {
-        return this.events.find((e)=>e.id === id);
+    async updateUserBalance (userId, newBalance) {
+        await connectDB();
+        return User.findByIdAndUpdate(userId, {
+            balance: newBalance
+        }, {
+            new: true
+        });
     },
-    createEvent (eventData) {
-        const event = {
-            id: Date.now().toString(),
+    async getAllUsers () {
+        await connectDB();
+        return User.find({}, '-password').sort({
+            createdAt: -1
+        });
+    },
+    // ── Event methods ────────────────────────────────────────────────────────────
+    async getActiveEvents () {
+        await connectDB();
+        return Event.find({
+            status: 'active'
+        }).sort({
+            drawDate: 1
+        });
+    },
+    async getEventById (id) {
+        await connectDB();
+        return Event.findById(id);
+    },
+    async createEvent (eventData) {
+        await connectDB();
+        return Event.create({
             ...eventData,
             soldTickets: 0,
-            status: 'active',
-            createdAt: new Date()
-        };
-        this.events.push(event);
-        return event;
+            status: 'active'
+        });
     },
-    // Ticket methods
-    createTicket (ticketData) {
-        const ticket = {
-            id: Date.now().toString(),
-            ...ticketData,
-            purchaseDate: new Date()
-        };
-        this.tickets.push(ticket);
+    async updateEvent (id, updates) {
+        await connectDB();
+        return Event.findByIdAndUpdate(id, updates, {
+            new: true
+        });
+    },
+    async getAllEvents () {
+        await connectDB();
+        return Event.find({}).sort({
+            createdAt: -1
+        });
+    },
+    // ── Ticket methods ───────────────────────────────────────────────────────────
+    async createTicket (ticketData) {
+        await connectDB();
+        const ticket = await Ticket.create(ticketData);
+        // Increment soldTickets on the event
+        await Event.findByIdAndUpdate(ticketData.eventId, {
+            $inc: {
+                soldTickets: ticketData.quantity
+            }
+        });
         return ticket;
     },
-    getUserTickets (userId) {
-        return this.tickets.filter((t)=>t.userId === userId);
+    async getUserTickets (userId) {
+        await connectDB();
+        return Ticket.find({
+            userId
+        }).populate('eventId').sort({
+            createdAt: -1
+        });
+    },
+    async getAllTickets () {
+        await connectDB();
+        return Ticket.find({}).populate('userId', 'name email').populate('eventId', 'name').sort({
+            createdAt: -1
+        });
     }
 };
 }),
@@ -192,39 +343,6 @@ __turbopack_context__.s([
     "verifyToken",
     ()=>verifyToken
 ]);
-// // lib/auth.js
-// import { cookies } from 'next/headers'
-// const JWT_SECRET = process.env.JWT_SECRET || 'your-secret-key-change-in-production';
-// export function generateToken(user) {
-//   // In production, use actual JWT library
-//   return Buffer.from(JSON.stringify({
-//     id: user.id,
-//     email: user.email,
-//     role: user.role,
-//   })).toString('base64');
-// }
-// export function verifyToken(token) {
-//   try {
-//     const decoded = JSON.parse(Buffer.from(token, 'base64').toString());
-//     return decoded;
-//   } catch {
-//     return null;
-//   }
-// }
-// export async function getAuthUser() {
-//   const cookieStore = await cookies();
-//   const token = cookieStore.get('token')?.value;
-//   if (!token) return null;
-//   return verifyToken(token);
-// }
-// export function hashPassword(password) {
-//   // In production, use bcrypt
-//   return password; // Simplified for demo
-// }
-// export function comparePasswords(password, hash) {
-//   // In production, use bcrypt.compare
-//   return password === hash; // Simplified for demo
-// }
 var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$jsonwebtoken$2f$index$2e$js__$5b$app$2d$route$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/node_modules/jsonwebtoken/index.js [app-route] (ecmascript)");
 var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$bcryptjs$2f$index$2e$js__$5b$app$2d$route$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/node_modules/bcryptjs/index.js [app-route] (ecmascript)");
 var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$headers$2e$js__$5b$app$2d$route$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/node_modules/next/headers.js [app-route] (ecmascript)");
@@ -234,7 +352,7 @@ var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$head
 const JWT_SECRET = process.env.JWT_SECRET || 'your-secret-key-change-in-production';
 function generateToken(user) {
     return __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$jsonwebtoken$2f$index$2e$js__$5b$app$2d$route$5d$__$28$ecmascript$29$__["default"].sign({
-        userId: user.id,
+        userId: user._id?.toString() || user.id,
         email: user.email,
         role: user.role
     }, JWT_SECRET, {
@@ -244,7 +362,7 @@ function generateToken(user) {
 function verifyToken(token) {
     try {
         return __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$jsonwebtoken$2f$index$2e$js__$5b$app$2d$route$5d$__$28$ecmascript$29$__["default"].verify(token, JWT_SECRET);
-    } catch (error) {
+    } catch  {
         return null;
     }
 }
@@ -254,11 +372,11 @@ async function getAuthUser() {
     if (!token) return null;
     return verifyToken(token);
 }
-function hashPassword(password) {
-    return __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$bcryptjs$2f$index$2e$js__$5b$app$2d$route$5d$__$28$ecmascript$29$__["default"].hashSync(password, 10);
+async function hashPassword(password) {
+    return __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$bcryptjs$2f$index$2e$js__$5b$app$2d$route$5d$__$28$ecmascript$29$__["default"].hash(password, 10);
 }
-function comparePasswords(password, hash) {
-    return __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$bcryptjs$2f$index$2e$js__$5b$app$2d$route$5d$__$28$ecmascript$29$__["default"].compareSync(password, hash);
+async function comparePasswords(password, hash) {
+    return __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$bcryptjs$2f$index$2e$js__$5b$app$2d$route$5d$__$28$ecmascript$29$__["default"].compare(password, hash);
 }
 }),
 "[project]/app/api/auth/login/route.js [app-route] (ecmascript)", ((__turbopack_context__) => {
@@ -268,6 +386,61 @@ __turbopack_context__.s([
     "POST",
     ()=>POST
 ]);
+// import { NextResponse } from 'next/server'
+// import { db } from '@/lib/db'
+// import { generateToken, comparePasswords } from '@/lib/auth'
+// export async function POST(request) {
+//   try {
+//     const { email, password } = await request.json()
+//     // Validate input
+//     if (!email || !password) {
+//       return NextResponse.json(
+//         { error: 'Email and password are required' },
+//         { status: 400 }
+//       )
+//     }
+//     // Find user
+//     const user = db.findUserByEmail(email)
+//     if (!user) {
+//       return NextResponse.json(
+//         { error: 'Invalid credentials' },
+//         { status: 401 }
+//       )
+//     }
+//     // For demo purposes, accept 'demo123' for user and 'admin123' for admin
+//     const validPassword = (email === 'user@demo.com' && password === 'demo123') ||
+//       (email === 'admin@demo.com' && password === 'admin123') ||
+//       comparePasswords(password, user.password)
+//     if (!validPassword) {
+//       return NextResponse.json(
+//         { error: 'Invalid credentials' },
+//         { status: 401 }
+//       )
+//     }
+//     // Generate token
+//     const token = generateToken(user)
+//     // Return user data (excluding password)
+//     const { password: _, ...userWithoutPassword } = user
+//     const response = NextResponse.json({
+//       token,
+//       user: userWithoutPassword,
+//     })
+//     // Set cookie
+//     response.cookies.set('token', token, {
+//       httpOnly: true,
+//       secure: process.env.NODE_ENV === 'production',
+//       sameSite: 'lax',
+//       maxAge: 60 * 60 * 24 * 7, // 7 days
+//     })
+//     return response
+//   } catch (error) {
+//     console.error('Login error:', error)
+//     return NextResponse.json(
+//       { error: 'Internal server error' },
+//       { status: 500 }
+//     )
+//   }
+// }
 var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$server$2e$js__$5b$app$2d$route$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/node_modules/next/server.js [app-route] (ecmascript)");
 var __TURBOPACK__imported__module__$5b$project$5d2f$lib$2f$db$2e$js__$5b$app$2d$route$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/lib/db.js [app-route] (ecmascript)");
 var __TURBOPACK__imported__module__$5b$project$5d2f$lib$2f$auth$2e$js__$5b$app$2d$route$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/lib/auth.js [app-route] (ecmascript)");
@@ -285,38 +458,45 @@ async function POST(request) {
                 status: 400
             });
         }
-        // Find user
-        const user = __TURBOPACK__imported__module__$5b$project$5d2f$lib$2f$db$2e$js__$5b$app$2d$route$5d$__$28$ecmascript$29$__["db"].findUserByEmail(email);
+        // Find user in MongoDB
+        const user = await __TURBOPACK__imported__module__$5b$project$5d2f$lib$2f$db$2e$js__$5b$app$2d$route$5d$__$28$ecmascript$29$__["db"].findUserByEmail(email);
         if (!user) {
             return __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$server$2e$js__$5b$app$2d$route$5d$__$28$ecmascript$29$__["NextResponse"].json({
-                error: 'Invalid credentials'
+                error: 'Invalid email or password'
             }, {
                 status: 401
             });
         }
-        // For demo purposes, accept 'demo123' for user and 'admin123' for admin
-        const validPassword = email === 'user@demo.com' && password === 'demo123' || email === 'admin@demo.com' && password === 'admin123' || (0, __TURBOPACK__imported__module__$5b$project$5d2f$lib$2f$auth$2e$js__$5b$app$2d$route$5d$__$28$ecmascript$29$__["comparePasswords"])(password, user.password);
-        if (!validPassword) {
+        // Verify password
+        const isValid = await (0, __TURBOPACK__imported__module__$5b$project$5d2f$lib$2f$auth$2e$js__$5b$app$2d$route$5d$__$28$ecmascript$29$__["comparePasswords"])(password, user.password);
+        if (!isValid) {
             return __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$server$2e$js__$5b$app$2d$route$5d$__$28$ecmascript$29$__["NextResponse"].json({
-                error: 'Invalid credentials'
+                error: 'Invalid email or password'
             }, {
                 status: 401
             });
         }
-        // Generate token
+        // Generate JWT
         const token = (0, __TURBOPACK__imported__module__$5b$project$5d2f$lib$2f$auth$2e$js__$5b$app$2d$route$5d$__$28$ecmascript$29$__["generateToken"])(user);
-        // Return user data (excluding password)
-        const { password: _, ...userWithoutPassword } = user;
+        // Build safe user object (no password)
+        const safeUser = {
+            id: user._id.toString(),
+            name: user.name,
+            email: user.email,
+            role: user.role,
+            balance: user.balance
+        };
         const response = __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$server$2e$js__$5b$app$2d$route$5d$__$28$ecmascript$29$__["NextResponse"].json({
             token,
-            user: userWithoutPassword
+            user: safeUser
         });
-        // Set cookie
+        // Set httpOnly cookie
         response.cookies.set('token', token, {
             httpOnly: true,
             secure: ("TURBOPACK compile-time value", "development") === 'production',
             sameSite: 'lax',
-            maxAge: 60 * 60 * 24 * 7
+            maxAge: 60 * 60 * 24 * 7,
+            path: '/'
         });
         return response;
     } catch (error) {
